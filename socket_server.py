@@ -8,8 +8,6 @@ import time
 
 import pickle
 
-_GOODBYE_MESSAGE = u'Goodbye'
-
 x = np.arange(0,np.pi*10,0.1).tolist()
 y = np.sin(x).tolist()
 data_size = len(x)
@@ -46,7 +44,6 @@ def get_graph_data():
     return graph_to_send
 
 
-
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen()
@@ -55,8 +52,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print('Connected by', addr)
         while True:
             data = conn.recv(1024)
-            #print(data)
-            if data == b'get-data':
-                conn.sendall(get_graph_data().encode('utf-8'))
-            else:
-                break
+            conn.sendall(get_graph_data().encode('utf-8'))
+
+
